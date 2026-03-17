@@ -1,19 +1,23 @@
 from obj_voitures import Voitures
 
-# Création des voitures
-captur = Voitures("Renault", "Captur_TCE_90ch", 2022, 20000, "Gris foncé", 7.2)
+# Création d’une voiture
 clio = Voitures("Renault", "Clio_TCE_100ch", 2018, 17000, "Bleu nuit", 5.5)
 
-# Distance Colmar → Biarritz
-distance = 1060
+# 33. Affichage direct des attributs (protégé et privé)
+print(clio._id_serie)       # None
+print(clio._Voitures__audio_code)  # None (nom mangling pour privé)
 
-# Calcul CO2 pour chaque voiture
-co2_clio = clio.calcul_co2(distance)
-co2_captur = captur.calcul_co2(distance)
+# 34. Appel de la méthode d'affichage
+clio.affiche_prot_priv()  # ID Série : None | Audio Code : None
 
-print(f"CO2 émis Clio : {co2_clio:.2f} kg pour {distance} km")
-print(f"CO2 émis Captur : {co2_captur:.2f} kg pour {distance} km")
+# 35. Test des setters et getters
+print("Set id_serie :", clio.set_id_serie("AB1234"))       # True
+print("Set audio_code :", clio.set_audio_code("1234"))     # True
+print("Set audio_code invalide :", clio.set_audio_code("12AB"))  # False
 
-# Comparaison approximative TGV : 3,9 kg / passager
-co2_tgv = 3.9 * 1  # 1 passager
-print(f"CO2 émis par TGV sur {distance} km : {co2_tgv:.2f} kg par passager")
+# Affichage via getters
+print("ID série :", clio.get_id_serie())       # AB1234
+print("Audio code :", clio.get_audio_code())   # 1234
+
+# Affichage via méthode dédiée
+clio.affiche_prot_priv()  # ID Série : AB1234 | Audio Code : 1234
